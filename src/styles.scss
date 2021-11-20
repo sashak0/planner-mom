@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+@mixin page-formats-iso($type, $i, $width, $height) {
+  @if $i < 10 {
+    .page-format-#{$type}#{$i} {
+      // outline: 1px solid black !important;
+      width: #{$width}mm !important;
+      height: #{$height}mm !important;
+    }
+    @include page-formats-iso($type, $i + 1, round($height / 2 - 0.1), $width);
+  }
+}
+
+@include page-formats-iso("a", 0, 841, 1189);
+@include page-formats-iso("b", 0, 1000, 1414);
+@include page-formats-iso("c", 0, 917, 1297);
+
+.line {
+  width: 100%;
+  border-bottom: 1px solid black;
+}

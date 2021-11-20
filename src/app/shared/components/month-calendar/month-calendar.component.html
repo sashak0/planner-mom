@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let day of weeks[0]">
+        {{ day | date: "E" }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let week of weeks">
+      <td class="p-3" *ngFor="let day of week">
+        <span *ngIf="day.getMonth() == month">{{ day | date: "d" }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
