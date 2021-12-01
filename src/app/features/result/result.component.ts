@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlannerParamsService } from './services';
 
 @Component({
   selector: 'result',
@@ -6,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent implements OnInit {
-  startDate: Date = new Date();
-  endDate: Date = new Date();
+  startDate: Date;
+  endDate: Date;
 
   months: Date[] = [];
 
-  constructor() {}
+  constructor(plannerParamsService: PlannerParamsService) {
+    this.startDate = new Date(plannerParamsService.params.start);
+    this.endDate = new Date(plannerParamsService.params.end);
+  }
 
   ngOnInit(): void {
     this.startDate.setDate(1);

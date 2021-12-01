@@ -2,7 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { DatesService } from '../../services';
 
@@ -12,8 +13,8 @@ import { DatesService } from '../../services';
   styleUrls: ['./month-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MonthCalendarComponent implements OnInit {
-  @Input() date: Date = new Date();
+export class MonthCalendarComponent implements OnChanges {
+  @Input() date!: Date;
 
   month!: number;
 
@@ -21,7 +22,11 @@ export class MonthCalendarComponent implements OnInit {
 
   constructor(private datesService: DatesService) {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['date']) this.dateChanged();
+  }
+
+  private dateChanged(): void {
     this.month = this.date.getMonth();
     var firstWeek = this.datesService.getDaysOfTheFirstWeek(this.date);
     let dates: Date[] = [];
@@ -36,6 +41,8 @@ export class MonthCalendarComponent implements OnInit {
         this.date.getFullYear()
       ),
     ];
+
+    this.weeks = [];
 
     while (dates.length > 7) {
       this.weeks.push(dates.slice(0, 7));

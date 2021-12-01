@@ -1,12 +1,14 @@
 <table>
   <thead>
     <tr>
+      <!-- Header: Mon, Tue, ..., Sun -->
       <th *ngFor="let day of weeks[0]">
         {{ day | date: "E" }}
       </th>
     </tr>
   </thead>
   <tbody>
+    <!-- Dates in calendar -->
     <tr *ngFor="let week of weeks">
       <td class="p-3" *ngFor="let day of week">
         <span *ngIf="day.getMonth() == month">{{ day | date: "d" }}</span>

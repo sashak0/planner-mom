@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h4>Paper format</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Paper format</mat-label>
+    <mat-select required formControlName="pageFormat">
+      <mat-option *ngFor="let format of isoFormats" [value]="format">
+        {{ format | uppercase }}
+      </mat-option>
+
+      <mat-option value="letter">Letter</mat-option>
+      <mat-option value="legal">Legal</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <h4 class="mt-2">Orientation</h4>
+  <mat-radio-group formControlName="pageOrientation">
+    <mat-radio-button value="portrait">Portrait</mat-radio-button>
+    <mat-radio-button class="ms-3" value="landscape"
+      >Landscape</mat-radio-button
+    >
+  </mat-radio-group>
+
+  <h4 class="mt-4">Dates</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input required [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date" />
+      <input matEndDate formControlName="end" placeholder="End date" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <button mat-button type="submit">Submit</button>
+</form>

@@ -1,19 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
 
-@mixin page-formats-iso($type, $i, $width, $height) {
-  @if $i < 10 {
+@mixin page-formats-iso($type, $i, $width, $height, $max) {
+  @if $i < $max {
     .page-format-#{$type}#{$i} {
       // outline: 1px solid black !important;
-      width: #{$width}mm !important;
-      height: #{$height}mm !important;
+      &.portrait {
+        width: #{$width}mm !important;
+        &:not(.width-only) {
+          height: #{$height}mm !important;
+        }
+      }
+
+      &.landscape {
+        width: #{$height}mm !important;
+        &:not(.width-only) {
+          height: #{$width}mm !important;
+        }
+      }
     }
-    @include page-formats-iso($type, $i + 1, round($height / 2 - 0.1), $width);
+
+    @include page-formats-iso(
+      $type,
+      $i + 1,
+      round($height / 2 - 0.1),
+      $width,
+      $max
+    );
   }
 }
 
-@include page-formats-iso("a", 0, 841, 1189);
-@include page-formats-iso("b", 0, 1000, 1414);
-@include page-formats-iso("c", 0, 917, 1297);
+@include page-formats-iso("a", 0, 841, 1189, 10);
+@include page-formats-iso("b", 0, 1000, 1414, 10);
+@include page-formats-iso("c", 0, 917, 1297, 10);
+
+.page-format-letter {
+  &.portrait {
+    width: 216mm !important;
+    &:not(.width-only) {
+      height: 280mm !important;
+    }
+  }
+  &.landscape {
+    width: 280mm !important;
+    &:not(.width-only) {
+      height: 216mm !important;
+    }
+  }
+}
+
+.page-format-legal {
+  &.portrait {
+    width: 216mm !important;
+    &:not(.width-only) {
+      height: 356mm !important;
+    }
+  }
+  &.landscape {
+    width: 356mm !important;
+    &:not(.width-only) {
+      height: 216mm !important;
+    }
+  }
+}
 
 .line {
   width: 100%;

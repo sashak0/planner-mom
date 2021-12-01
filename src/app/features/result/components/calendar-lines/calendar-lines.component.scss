@@ -1,0 +1,14 @@
+.page {
+  position: relative;
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .month-name-box {
+      font-family: Petit Formal Script;
+      font-size: 1cm;
+      background-color: white;
+    }
+  }
+}
