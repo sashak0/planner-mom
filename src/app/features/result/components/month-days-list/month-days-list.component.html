@@ -1,19 +1,20 @@
 <!-- {{ date | date: "MMMM" }} -->
-
-<table pageFormat>
-  <tbody>
-    <tr
-      class="line highlight-weekend-numbers align-middle"
-      *ngFor="let item of [].constructor(31); let i = index"
-    >
-      <td
-        class="mx-3"
-        *ngIf="i < dates.length"
-        [class]="'day-' + dates[i].getDay()"
+<div class="page" pageFormat>
+  <table class="w-100 h-100">
+    <tbody>
+      <tr
+        class="line highlight-weekend-numbers align-middle"
+        *ngFor="let item of [].constructor(31); let i = index"
       >
-        {{ dates[i] | date: "d" }}
-      </td>
-      <td class="transparent" *ngIf="i >= dates.length">‎</td>
-    </tr>
-  </tbody>
-</table>
+        <td
+          class="mx-3"
+          *ngIf="i < dates.length"
+          [class]="'day-' + dates[i].getDay()"
+        >
+          {{ dates[i] | date: "d" }}
+        </td>
+        <td *ngIf="i >= dates.length">‎</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

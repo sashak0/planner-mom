@@ -1,15 +1,15 @@
-<div class="page">
-  <div class="w-100 overlay d-flex justify-content-between">
+<div class="page" pageFormat>
+  <div class="w-100 overlay d-flex justify-content-between pt-2">
     <month-calendar [date]="date"></month-calendar>
-    <div class="month-name-box p-3">
+    <div class="month-name-box px-3 pb-3">
       <span>{{ date | date: "MMMM YYYY" }}</span>
     </div>
   </div>
 
-  <table pageFormat>
+  <table class="w-100 h-100">
     <tbody>
       <tr class="line" *ngFor="let item of [].constructor(31)">
-        <td class="transparent">‎</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

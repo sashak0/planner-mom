@@ -29,7 +29,7 @@ export class PlannerParamsComponent implements OnInit {
     this.form = builder.group(params);
 
     for (let type of ['a', 'b', 'c'])
-      for (let number of [5, 6]) this.isoFormats.push(type + number);
+      for (let number of [4, 5, 6]) this.isoFormats.push(type + number);
   }
 
   ngOnInit(): void {}

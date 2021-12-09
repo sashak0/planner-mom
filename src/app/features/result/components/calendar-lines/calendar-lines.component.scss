@@ -7,8 +7,12 @@
 
     .month-name-box {
       font-family: Petit Formal Script;
-      font-size: 1cm;
+      font-size: 2rem;
+      line-height: 2rem;
       background-color: white;
+      height: fit-content;
+      width: 100%;
+      text-align: end;
     }
   }
 }

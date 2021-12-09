@@ -19,8 +19,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.startDate.setDate(1);
-    this.endDate.setDate(1);
-    this.endDate.setFullYear(this.endDate.getFullYear() + 1);
+
     var date = new Date(this.startDate);
     while (date < this.endDate) {
       this.months.push(date);
