@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <!-- Header: Mon, Tue, ..., Sun -->
-      <th *ngFor="let day of weeks[0]">
-        {{ day | date: "E" }}
+      <th *ngFor="let day of dayNames$ | async">
+        {{ day }}
       </th>
     </tr>
   </thead>

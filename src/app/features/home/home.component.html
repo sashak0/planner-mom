@@ -1,29 +1,33 @@
 <mat-card class="d-print-none">
-  <mat-card-title>Select dates</mat-card-title>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input required [rangePicker]="picker">
-        <input
-          matStartDate
-          required
-          formControlName="start"
-          placeholder="Start date"
-        />
-        <input
-          matEndDate
-          required
-          formControlName="end"
-          placeholder="End date"
-        />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+    <div *transloco="let t; read: 'select-locale'">
+      <h3>{{ t("heading") }}</h3>
+      <mat-form-field>
+        <mat-select formControlName="locale">
+          <mat-option value="nl-BE">nl-BE</mat-option>
+          <mat-option value="en-GB">en-GB</mat-option>
+          <mat-option value="en-US">en-US</mat-option>
+          <mat-option value="fr-FR">fr-FR</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *transloco="let t; read: 'dates'">
+      <h3>{{ t("heading") }}</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ t("label") }}</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate required formControlName="start" />
+          <input matEndDate required formControlName="end" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
 
     <mat-card-actions>
       <button mat-raised-button type="submit" [disabled]="form.invalid">
-        Print
+        {{ "print" | transloco }}
       </button>
     </mat-card-actions>
   </form>

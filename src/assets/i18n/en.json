@@ -1,0 +1,10 @@
+{
+  "dates": {
+    "heading": "Select dates",
+    "label": "Enter a date range"
+  },
+  "print": "Print",
+  "select-locale": {
+    "heading": "Select locale"
+  }
+}

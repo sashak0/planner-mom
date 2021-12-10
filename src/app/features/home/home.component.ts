@@ -6,23 +6,34 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { DatesService, LocaleService } from './services';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  providers: [LocaleService, DatesService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements AfterViewChecked {
   form: FormGroup;
-  monthsSubject: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
-  months$ = this.monthsSubject.asObservable();
+  months$: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
   print: boolean = false;
 
-  constructor(private changeDetector: ChangeDetectorRef, builder: FormBuilder) {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private localeService: LocaleService,
+    builder: FormBuilder
+  ) {
     this.form = builder.group({
+      locale: localeService.locale,
       start: null,
       end: null,
+    });
+
+    this.form.get('locale')?.valueChanges.subscribe((locale) => {
+      this.localeService.setLocale(locale);
+      this.changeDetector.detectChanges();
     });
   }
 
@@ -44,11 +55,10 @@ export class HomeComponent implements AfterViewChecked {
       date.setMonth(date.getMonth() + 1);
     }
 
-    if (JSON.stringify(this.monthsSubject.value) != JSON.stringify(_months)) {
-      this.monthsSubject.next(_months);
-      this.changeDetector.detectChanges();
-    }
+    if (JSON.stringify(this.months$.value) != JSON.stringify(_months))
+      this.months$.next(_months);
 
+    this.changeDetector.detectChanges();
     this.print = true;
   }
 }

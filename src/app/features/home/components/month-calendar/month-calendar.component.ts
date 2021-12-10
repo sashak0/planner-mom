@@ -20,6 +20,8 @@ export class MonthCalendarComponent implements OnChanges {
 
   weeks: Date[][] = [];
 
+  dayNames$ = this.datesService.dayNames$;
+
   constructor(private datesService: DatesService) {}
 
   ngOnChanges(changes: SimpleChanges): void {

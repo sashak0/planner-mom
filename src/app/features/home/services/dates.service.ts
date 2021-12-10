@@ -1,13 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import Holidays from 'date-holidays';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class DatesService {
+@Injectable()
+export class DatesService implements OnDestroy {
   private holidays = new Holidays('BE', 'VLG');
+  private subscription: Subscription;
 
-  constructor() {}
+  dayNames$: BehaviorSubject<string[]> = new BehaviorSubject(
+    this.dateAdapter.getDayOfWeekNames('short')
+  );
+  monthNames$: BehaviorSubject<string[]> = new BehaviorSubject(
+    this.dateAdapter.getMonthNames('long')
+  );
+
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    this.subscription = this.dateAdapter.localeChanges.subscribe(() => {
+      this.dayNames$.next(this.dateAdapter.getDayOfWeekNames('short'));
+      this.monthNames$.next(this.dateAdapter.getMonthNames('long'));
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   getDatesInMonth(month: number, year: number): Date[] {
     var date = new Date(year, month, 1);

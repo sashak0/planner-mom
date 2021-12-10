@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { map } from 'rxjs/internal/operators/map';
+import { DatesService } from '../../services';
 
 @Component({
   selector: 'calendar-lines',
@@ -7,8 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CalendarLinesComponent implements OnInit {
   @Input() date!: Date;
+  monthName$ = this.datesService.monthNames$.pipe(
+    map((months) => months[this.date.getMonth()])
+  );
 
-  constructor() {}
+  constructor(private datesService: DatesService) {}
 
   ngOnInit(): void {}
 }
