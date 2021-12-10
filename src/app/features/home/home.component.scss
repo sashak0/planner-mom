@@ -1,0 +1,21 @@
+:host::ng-deep {
+  @media screen {
+    .print-only {
+      display: none;
+    }
+  }
+
+  @media print {
+    .page {
+      page-break-after: always;
+      page-break-inside: avoid;
+      width: 100vw;
+      height: 99vh;
+    }
+
+    .line {
+      width: 100%;
+      border-bottom: 1px solid black;
+    }
+  }
+}

@@ -1,6 +1,8 @@
-<div class="page" pageFormat>
+<div class="page">
   <div class="w-100 overlay d-flex justify-content-between pt-2">
-    <month-calendar [date]="date"></month-calendar>
+    <div class="calendar px-1">
+      <month-calendar [date]="date"></month-calendar>
+    </div>
     <div class="month-name-box px-3 pb-3">
       <span>{{ date | date: "MMMM YYYY" }}</span>
     </div>

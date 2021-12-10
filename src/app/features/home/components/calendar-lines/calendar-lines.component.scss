@@ -1,0 +1,22 @@
+.page {
+  position: relative;
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.month-name-box {
+  font-family: Petit Formal Script;
+  font-size: 2rem;
+  line-height: 2rem;
+  background-color: white;
+  height: fit-content;
+  width: 100%;
+  text-align: end;
+}
+
+.calendar {
+  background-color: white;
+}

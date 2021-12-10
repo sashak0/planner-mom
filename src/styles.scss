@@ -1,26 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
-@media screen {
-  .page {
-    display: none;
-  }
-}
-
 @media print {
   html,
   body {
-    font-size: min(3vw, 3vh) !important;
-  }
-
-  .page {
-    page-break-after: always;
-    page-break-inside: avoid;
-    width: 100vw;
-    height: 100vh;
-  }
-
-  .line {
-    width: 100%;
-    border-bottom: 1px solid black;
+    font-size: min(2.5vw, 2.5vh) !important;
   }
 }
