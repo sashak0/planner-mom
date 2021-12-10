@@ -1,5 +1,4 @@
-import { CommonModule, registerLocaleData } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +15,6 @@ import {
 } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { DateLocalPipe } from './pipes';
 
 var formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
 var matModules = [
@@ -34,7 +32,7 @@ var components = [
 ];
 
 @NgModule({
-  declarations: [...components, DateLocalPipe],
+  declarations: [...components],
   imports: [
     CommonModule,
     TranslocoModule,
