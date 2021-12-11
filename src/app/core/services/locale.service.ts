@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
+// import Holidays from 'date-holidays';
+/* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unused-vars */
 import * as localeCodes from 'locale-codes';
 import { ILocale } from 'locale-codes';
 import * as momentF from 'moment';
@@ -8,6 +10,8 @@ import { Locale } from '../models';
 
 @Injectable()
 export class LocaleService {
+  // private holidays = new Holidays('BE', 'VLG');
+
   locale: Locale;
   allLocales: Map<string, Locale> = new Map();
 

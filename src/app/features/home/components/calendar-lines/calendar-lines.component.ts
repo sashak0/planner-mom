@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LocaleService } from '@app/core';
 import { map } from 'rxjs/internal/operators/map';
-import { LocaleService } from '../../services';
 
 @Component({
   selector: 'calendar-lines',

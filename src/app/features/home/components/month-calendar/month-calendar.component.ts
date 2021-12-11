@@ -5,7 +5,8 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { DatesService, LocaleService } from '../../services';
+import { LocaleService } from '@app/core';
+import { DatesService } from '../../services';
 
 @Component({
   selector: 'month-calendar',

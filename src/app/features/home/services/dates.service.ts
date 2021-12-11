@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import Holidays from 'date-holidays';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DatesService {
-  private holidays = new Holidays('BE', 'VLG');
-
   constructor() {}
 
   getDatesInMonth(month: number, year: number): Date[] {

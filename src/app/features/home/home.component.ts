@@ -5,10 +5,11 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LocaleService } from '@app/core';
 import { ILocale } from 'locale-codes';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HomeForm } from './models';
-import { DatesService, LocaleService } from './services';
+import { DatesService } from './services';
 
 @Component({
   selector: 'home',
