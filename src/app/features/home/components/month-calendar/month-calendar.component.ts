@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { DatesService } from '../../services';
+import { DatesService, LocaleService } from '../../services';
 
 @Component({
   selector: 'month-calendar',
@@ -20,9 +20,12 @@ export class MonthCalendarComponent implements OnChanges {
 
   weeks: Date[][] = [];
 
-  dayNames$ = this.datesService.dayNames$;
+  dayNames$ = this.localeService.dayNames$;
 
-  constructor(private datesService: DatesService) {}
+  constructor(
+    private datesService: DatesService,
+    private localeService: LocaleService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['date']) this.dateChanged();

@@ -5,7 +5,9 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { ILocale } from 'locale-codes';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { HomeForm } from './models';
 import { DatesService, LocaleService } from './services';
 
 @Component({
@@ -17,6 +19,7 @@ import { DatesService, LocaleService } from './services';
 })
 export class HomeComponent implements AfterViewChecked {
   form: FormGroup;
+  locales$: Observable<ILocale[]>;
   months$: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
   print: boolean = false;
 
@@ -25,16 +28,21 @@ export class HomeComponent implements AfterViewChecked {
     private localeService: LocaleService,
     builder: FormBuilder
   ) {
-    this.form = builder.group({
-      locale: localeService.locale,
-      start: null,
-      end: null,
-    });
+    var formInit: HomeForm = {
+      locale: localeService.locale.iLocale.tag,
+      start: undefined,
+      end: undefined,
+    };
+    this.form = builder.group(formInit);
 
-    this.form.get('locale')?.valueChanges.subscribe((locale) => {
-      this.localeService.setLocale(locale);
-      this.changeDetector.detectChanges();
-    });
+    this.locales$ = this.form.get('locale')!.valueChanges.pipe(
+      map((input) => {
+        if (input.length < 1) return [];
+        return Array.from(this.localeService.allLocales.values())
+          .filter((locale) => this.isMatch(input, locale.iLocale))
+          .map((locale) => locale.iLocale);
+      })
+    );
   }
 
   ngAfterViewChecked(): void {
@@ -58,7 +66,29 @@ export class HomeComponent implements AfterViewChecked {
     if (JSON.stringify(this.months$.value) != JSON.stringify(_months))
       this.months$.next(_months);
 
+    this.setLocale(this.form.value.locale);
+
     this.changeDetector.detectChanges();
     this.print = true;
+  }
+
+  setLocale(locale: string) {
+    this.localeService.setLocale(locale);
+  }
+
+  private isMatch(input: string, iLocale: ILocale): boolean {
+    return input
+      .toLowerCase()
+      .split(' ')
+      .every(
+        (inputPart) =>
+          iLocale.tag.toLowerCase().includes(inputPart) ||
+          iLocale.name.toLowerCase().includes(inputPart) ||
+          iLocale.lcid.toString().toLowerCase().includes(inputPart) ||
+          iLocale.location?.toLowerCase().includes(inputPart) ||
+          iLocale.local?.toLowerCase().includes(inputPart) ||
+          iLocale['iso639-1']?.toLowerCase().includes(inputPart) ||
+          iLocale['iso639-2']?.toLowerCase().includes(inputPart)
+      );
   }
 }

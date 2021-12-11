@@ -2,13 +2,23 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div *transloco="let t; read: 'select-locale'">
       <h3>{{ t("heading") }}</h3>
-      <mat-form-field>
-        <mat-select formControlName="locale">
-          <mat-option value="nl-BE">nl-BE</mat-option>
-          <mat-option value="en-GB">en-GB</mat-option>
-          <mat-option value="en-US">en-US</mat-option>
-          <mat-option value="fr-FR">fr-FR</mat-option>
-        </mat-select>
+      <mat-form-field appearance="fill" class="wide">
+        <input
+          matInput
+          aria-label="Locale label"
+          formControlName="locale"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of locales$ | async"
+            [value]="option.tag"
+            (click)="setLocale(option.tag)"
+          >
+            {{ option.tag }} {{ option.name }} {{ option.local }}
+            {{ option.location }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
 
