@@ -1,16 +1,13 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  MomentDateAdapter,
-} from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LocaleDateAdapter } from '@app/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeModule } from './features/home/home.module';
 import { TranslocoRootModule } from './transloco-root.module';
-import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,13 +17,12 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     TranslocoRootModule,
     HttpClientModule,
-    CoreModule,
+    HomeModule,
   ],
   providers: [
     {
       provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      useClass: LocaleDateAdapter,
     },
   ],
   bootstrap: [AppComponent],

@@ -44,6 +44,5 @@ var components = [
     ...formModules,
     ...matModules,
   ],
-  providers: [],
 })
 export class HomeModule {}

@@ -9,13 +9,11 @@ import { LocaleService } from '@app/core';
 import { ILocale } from 'locale-codes';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HomeForm } from './models';
-import { DatesService } from './services';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [LocaleService, DatesService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements AfterViewChecked {
@@ -53,23 +51,26 @@ export class HomeComponent implements AfterViewChecked {
     }
   }
 
+  private submittedFormValue?: HomeForm;
   onSubmit(): void {
-    var _months = [];
-    var date = new Date(this.form.value.start);
-    var end = this.form.value.end;
+    if (this.submittedFormValue != <HomeForm>this.form.value) {
+      this.setLocale(this.form.value.locale);
+      var _months = [];
+      var date = new Date(this.form.value.start);
+      var end = this.form.value.end;
 
-    while (date < end) {
-      _months.push(date);
-      date = new Date(date);
-      date.setMonth(date.getMonth() + 1);
-    }
+      while (date < end) {
+        _months.push(date);
+        date = new Date(date);
+        date.setMonth(date.getMonth() + 1);
+      }
 
-    if (JSON.stringify(this.months$.value) != JSON.stringify(_months))
       this.months$.next(_months);
 
-    this.setLocale(this.form.value.locale);
+      this.changeDetector.detectChanges();
 
-    this.changeDetector.detectChanges();
+      this.submittedFormValue = this.form.value;
+    }
     this.print = true;
   }
 
