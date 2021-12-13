@@ -5,7 +5,7 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { allLocales, Locale, LocaleService } from '@app/core';
+import { Locale, LocaleService } from '@app/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HomeForm } from './models';
 
@@ -36,7 +36,7 @@ export class HomeComponent implements AfterViewChecked {
     this.locales$ = this.form.get('locale')!.valueChanges.pipe(
       map((input) => {
         if (input.length < 1) return [];
-        return Object.values(allLocales).filter((locale) =>
+        return Object.values(this.localeService.allLocales).filter((locale) =>
           this.isMatch(input, locale)
         );
       })
@@ -78,16 +78,15 @@ export class HomeComponent implements AfterViewChecked {
     this.localeService.setLocale(locale);
   }
 
-  private isMatch(input: string, iLocale: Locale): boolean {
+  private isMatch(input: string, locale: Locale): boolean {
     return input
       .toLowerCase()
       .split(' ')
       .every(
         (inputPart) =>
-          iLocale.id.toLowerCase().includes(inputPart) ||
-          iLocale.name.toLowerCase().includes(inputPart) ||
-          iLocale.location?.toLowerCase().includes(inputPart) ||
-          iLocale.local?.toLowerCase().includes(inputPart)
+          locale.id.toLowerCase().includes(inputPart) ||
+          locale.name.toLowerCase().includes(inputPart) ||
+          locale.local?.toLowerCase().includes(inputPart)
       );
   }
 }

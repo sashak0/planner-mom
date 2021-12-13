@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { NativeDateAdapter } from '@angular/material/core';
-import * as momentF from 'moment';
+import * as moment from 'moment';
 
 @Injectable()
 export class LocaleDateAdapter extends NativeDateAdapter {
   override getFirstDayOfWeek(): number {
-    return momentF.localeData(this.locale).firstDayOfWeek();
+    return moment.localeData(this.locale).firstDayOfWeek();
   }
 }
