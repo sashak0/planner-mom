@@ -1,4 +1,4 @@
-Generates printable planner according to the user parameters
+Generates printable planner according to the user parameters. Prints in multiple locales (languages). Paper size, layout and margins can be set up during printing (see screenshot)
 
 ![image](https://user-images.githubusercontent.com/79799149/145828529-892fda2f-01f4-4aaf-a568-2b177436503d.png)
 
