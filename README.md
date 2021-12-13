@@ -1,6 +1,7 @@
-<<<<<<< HEAD
-# planner-mom
-Planner for my mom
+Generates printable planner according to the user parameters. Prints in multiple locales (languages). Paper size, layout and margins can be set up during printing (see screenshot)
+
+![image](https://user-images.githubusercontent.com/79799149/145828529-892fda2f-01f4-4aaf-a568-2b177436503d.png)
+
 =======
 # Planner
 
@@ -29,4 +30,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
->>>>>>> b9eaccb... initial commit
+
