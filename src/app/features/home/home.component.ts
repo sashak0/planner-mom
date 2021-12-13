@@ -5,8 +5,7 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LocaleService } from '@app/core';
-import { ILocale } from 'locale-codes';
+import { allLocales, Locale, LocaleService } from '@app/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HomeForm } from './models';
 
@@ -18,7 +17,7 @@ import { HomeForm } from './models';
 })
 export class HomeComponent implements AfterViewChecked {
   form: FormGroup;
-  locales$: Observable<ILocale[]>;
+  locales$: Observable<Locale[]>;
   months$: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
   print: boolean = false;
 
@@ -28,7 +27,7 @@ export class HomeComponent implements AfterViewChecked {
     builder: FormBuilder
   ) {
     var formInit: HomeForm = {
-      locale: localeService.locale.iLocale.tag,
+      locale: localeService.locale.id,
       start: undefined,
       end: undefined,
     };
@@ -37,9 +36,9 @@ export class HomeComponent implements AfterViewChecked {
     this.locales$ = this.form.get('locale')!.valueChanges.pipe(
       map((input) => {
         if (input.length < 1) return [];
-        return Array.from(this.localeService.allLocales.values())
-          .filter((locale) => this.isMatch(input, locale.iLocale))
-          .map((locale) => locale.iLocale);
+        return Object.values(allLocales).filter((locale) =>
+          this.isMatch(input, locale)
+        );
       })
     );
   }
@@ -53,11 +52,12 @@ export class HomeComponent implements AfterViewChecked {
 
   private submittedFormValue?: HomeForm;
   onSubmit(): void {
-    if (this.submittedFormValue != <HomeForm>this.form.value) {
-      this.setLocale(this.form.value.locale);
+    const formValue = <HomeForm>this.form.value;
+    if (this.submittedFormValue != formValue) {
+      this.setLocale(formValue.locale);
       var _months = [];
-      var date = new Date(this.form.value.start);
-      var end = this.form.value.end;
+      var date = new Date(formValue.start!);
+      var end = formValue.end!;
 
       while (date < end) {
         _months.push(date);
@@ -74,23 +74,20 @@ export class HomeComponent implements AfterViewChecked {
     this.print = true;
   }
 
-  setLocale(locale: string) {
+  setLocale(locale: Locale | string) {
     this.localeService.setLocale(locale);
   }
 
-  private isMatch(input: string, iLocale: ILocale): boolean {
+  private isMatch(input: string, iLocale: Locale): boolean {
     return input
       .toLowerCase()
       .split(' ')
       .every(
         (inputPart) =>
-          iLocale.tag.toLowerCase().includes(inputPart) ||
+          iLocale.id.toLowerCase().includes(inputPart) ||
           iLocale.name.toLowerCase().includes(inputPart) ||
-          iLocale.lcid.toString().toLowerCase().includes(inputPart) ||
           iLocale.location?.toLowerCase().includes(inputPart) ||
-          iLocale.local?.toLowerCase().includes(inputPart) ||
-          iLocale['iso639-1']?.toLowerCase().includes(inputPart) ||
-          iLocale['iso639-2']?.toLowerCase().includes(inputPart)
+          iLocale.local?.toLowerCase().includes(inputPart)
       );
   }
 }
