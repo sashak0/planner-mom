@@ -13,6 +13,7 @@
           <mat-option
             *ngFor="let option of locales$ | async"
             [value]="option.id"
+            title="{{ option.id }} {{ option.local }} {{ option.name }}"
             (click)="setLocale(option)"
           >
             {{ option.id }} {{ option.local }} {{ option.name }}
@@ -37,6 +38,7 @@
     <mat-card-actions class="d-flex justify-content-center">
       <button
         mat-fab
+        class="print-button"
         type="submit"
         [disabled]="form.invalid"
         [title]="'print' | transloco"
