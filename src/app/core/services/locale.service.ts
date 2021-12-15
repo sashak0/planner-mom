@@ -28,8 +28,9 @@ export class LocaleService implements OnDestroy {
       .get('assets/locales.json', { responseType: 'json' })
       .subscribe((response) => {
         this.allLocales = <AllLocales>response;
-        this.locale =
-          this.allLocales[navigator.language] ?? this.allLocales['en'];
+        this.setLocale(
+          this.allLocales[navigator.language] ?? this.allLocales['en']
+        );
       });
   }
   ngOnDestroy(): void {
