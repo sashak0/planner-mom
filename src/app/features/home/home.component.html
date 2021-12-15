@@ -1,4 +1,4 @@
-<mat-card class="d-print-none">
+<div class="container-md fit-content py-4 d-print-none">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div *transloco="let t; read: 'select-locale'">
       <h3>{{ t("heading") }}</h3>
@@ -34,13 +34,18 @@
       </mat-form-field>
     </div>
 
-    <mat-card-actions>
-      <button mat-raised-button type="submit" [disabled]="form.invalid">
-        {{ "print" | transloco }}
+    <mat-card-actions class="d-flex justify-content-center">
+      <button
+        mat-fab
+        type="submit"
+        [disabled]="form.invalid"
+        [title]="'print' | transloco"
+      >
+        <mat-icon>print</mat-icon>
       </button>
     </mat-card-actions>
   </form>
-</mat-card>
+</div>
 
 <div class="print-only" *ngFor="let date of months$ | async">
   <calendar-lines [date]="date"></calendar-lines>

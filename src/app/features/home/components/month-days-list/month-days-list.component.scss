@@ -1,14 +1,14 @@
-.rainbow-day-numbers {
-  @mixin days {
-    @for $i from 0 through 6 {
-      .day-#{$i} {
-        color: hsl(calc(360 * $i / 7), 100%, 40%);
-      }
-    }
-  }
+// .rainbow-day-numbers {
+//   @mixin days {
+//     @for $i from 0 through 6 {
+//       .day-#{$i} {
+//         color: hsl(calc(360 * $i / 7), 100%, 40%);
+//       }
+//     }
+//   }
 
-  @include days;
-}
+//   @include days;
+// }
 
 .highlight-weekend-numbers {
   .day-0,

@@ -3,6 +3,10 @@
     .print-only {
       display: none;
     }
+
+    .fit-content {
+      width: fit-content;
+    }
   }
 
   @media print {
