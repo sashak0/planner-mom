@@ -7,7 +7,8 @@
     "build": "ng build --stats-json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "analyze": "npx webpack-bundle-analyzer dist/planner/stats.json"
+    "analyze": "npx webpack-bundle-analyzer dist/planner/stats.json",
+    "deploy": "ng deploy --base-href=https://sashak0.github.io/planner-mom/"
   },
   "private": true,
   "dependencies": {
