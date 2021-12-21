@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-// import Holidays from 'date-holidays';
 import * as moment from 'moment';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { AllLocales, Locale } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocaleService implements OnDestroy {
+export class LocaleService {
+  // import Holidays from 'date-holidays';
   // private holidays = new Holidays('BE', 'VLG');
 
   locale: Locale = {
@@ -21,20 +21,16 @@ export class LocaleService implements OnDestroy {
   dayNames$: BehaviorSubject<string[]> = new BehaviorSubject(<string[]>[]);
   monthNames$: BehaviorSubject<string[]> = new BehaviorSubject(<string[]>[]);
 
-  private sub: Subscription;
-
   constructor(private dateAdapter: DateAdapter<Date>, http: HttpClient) {
-    this.sub = http
+    http
       .get('assets/locales.json', { responseType: 'json' })
+      .pipe(take(1))
       .subscribe((response) => {
         this.allLocales = <AllLocales>response;
         this.setLocale(
           this.allLocales[navigator.language] ?? this.allLocales['en']
         );
       });
-  }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 
   setLocale(locale: Locale | string): void {
