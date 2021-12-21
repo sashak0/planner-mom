@@ -16,7 +16,6 @@ import {
   MonthCalendarComponent,
   MonthDaysListComponent,
 } from './components';
-import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 var formModules = [FormsModule, ReactiveFormsModule, MatFormFieldModule];
@@ -39,12 +38,6 @@ var components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    HomeRoutingModule,
-    ...formModules,
-    ...matModules,
-  ],
+  imports: [CommonModule, TranslocoModule, ...formModules, ...matModules],
 })
 export class HomeModule {}
