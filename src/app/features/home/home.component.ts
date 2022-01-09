@@ -21,6 +21,8 @@ export class HomeComponent implements AfterViewChecked {
   months$: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
   print: boolean = false;
 
+  previewDate = new Date();
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private localeService: LocaleService,

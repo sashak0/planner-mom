@@ -7,6 +7,21 @@
     .fit-content {
       width: fit-content;
     }
+
+    .preview {
+      $width: 300px;
+      $font-size: $width * 0.025;
+      width: $width;
+
+      font-size: $font-size !important;
+      line-height: $font-size !important;
+      padding: $font-size * 2;
+      outline: 1px solid rgb(29, 29, 29);
+
+      .lines-table {
+        height: $width * 1.4 !important;
+      }
+    }
   }
 
   @media print {
@@ -16,11 +31,11 @@
       width: 100vw;
       height: 99vh;
     }
+  }
 
-    .line {
-      width: 100%;
-      border-bottom: 1px solid black;
-    }
+  .lines-table .line {
+    width: 100%;
+    border-bottom: 1px solid black;
   }
 }
 

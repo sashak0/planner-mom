@@ -1,14 +1,14 @@
 <div class="page">
-  <div class="w-100 overlay d-flex justify-content-between pt-2">
-    <div class="calendar px-1 pb-3">
+  <div class="w-100 overlay d-flex justify-content-between">
+    <div class="calendar">
       <month-calendar [date]="date"></month-calendar>
     </div>
-    <div class="month-name-box px-3 pt-3 pb-5">
+    <div class="month-name-box">
       <span>{{ monthName$ | async }} {{ date | date: "YYYY" }}</span>
     </div>
   </div>
 
-  <table class="w-100 h-100">
+  <table class="lines-table w-100 h-100">
     <tbody>
       <tr class="line" *ngFor="let item of [].constructor(31)">
         <td></td>

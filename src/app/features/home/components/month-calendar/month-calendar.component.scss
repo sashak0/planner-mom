@@ -1,8 +1,14 @@
 :host {
-  tr,
+  th {
+    text-align: center;
+    height: 2.5em;
+    vertical-align: middle;
+  }
+
+  tbody tr,
   td {
-    height: 2.5rem;
-    width: 7rem;
+    height: 2.5em;
+    width: 7em;
     vertical-align: middle;
     text-align: center;
   }

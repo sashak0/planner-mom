@@ -38,7 +38,7 @@ export class LocaleService {
     if (typeof locale === 'string') locale = this.allLocales[locale];
     this.locale = locale;
     this.dateAdapter.setLocale(locale.id);
-    this.dayNames$.next(this.getDayOfWeekNames('short'));
+    this.dayNames$.next(this.getDayOfWeekNames('narrow'));
     this.monthNames$.next(moment.localeData(locale.id).months());
   }
 

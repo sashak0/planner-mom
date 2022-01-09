@@ -47,6 +47,19 @@
       </button>
     </mat-card-actions>
   </form>
+
+  <div class="row">
+    <div class="col-md">
+      <div class="preview">
+        <calendar-lines [date]="previewDate"></calendar-lines>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="preview">
+        <month-days-list [date]="previewDate"></month-days-list>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="print-only" *ngFor="let date of months$ | async">
