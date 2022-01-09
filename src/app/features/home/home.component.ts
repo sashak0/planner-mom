@@ -29,7 +29,7 @@ export class HomeComponent implements AfterViewChecked {
     builder: FormBuilder
   ) {
     var formInit: HomeForm = {
-      locale: localeService.locale.id,
+      locale: localeService.locale$.value.id,
       start: undefined,
       end: undefined,
     };

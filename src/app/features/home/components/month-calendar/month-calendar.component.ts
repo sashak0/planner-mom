@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { LocaleService } from '@app/core';
+import { LocaleService, UnsubscribeOnDestroy } from '@app/core';
 import { DatesService } from '../../services';
 
 @Component({
@@ -14,7 +15,10 @@ import { DatesService } from '../../services';
   styleUrls: ['./month-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MonthCalendarComponent implements OnChanges {
+export class MonthCalendarComponent
+  extends UnsubscribeOnDestroy
+  implements OnChanges
+{
   @Input() date!: Date;
 
   month!: number;
@@ -25,14 +29,19 @@ export class MonthCalendarComponent implements OnChanges {
 
   constructor(
     private datesService: DatesService,
-    private localeService: LocaleService
-  ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['date']) this.dateChanged();
+    private localeService: LocaleService,
+    private changeDetector: ChangeDetectorRef
+  ) {
+    super();
+    this.subs = localeService.locale$.subscribe(() => this.updateDates());
   }
 
-  private dateChanged(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['date']) this.updateDates();
+  }
+
+  private updateDates(): void {
+    if (!this.date) return;
     this.month = this.date.getMonth();
     var firstWeek = this.datesService.getDaysOfTheFirstWeek(this.date);
     let dates: Date[] = [];
@@ -55,5 +64,7 @@ export class MonthCalendarComponent implements OnChanges {
       dates = dates.slice(7);
     }
     this.weeks.push(dates);
+
+    this.changeDetector.detectChanges();
   }
 }

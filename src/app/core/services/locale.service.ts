@@ -12,10 +12,10 @@ export class LocaleService {
   // import Holidays from 'date-holidays';
   // private holidays = new Holidays('BE', 'VLG');
 
-  locale: Locale = {
+  locale$: BehaviorSubject<Locale> = new BehaviorSubject({
     id: navigator.language,
     name: '',
-  };
+  });
   allLocales!: AllLocales;
 
   dayNames$: BehaviorSubject<string[]> = new BehaviorSubject(<string[]>[]);
@@ -34,10 +34,10 @@ export class LocaleService {
   }
 
   setLocale(locale: Locale | string): void {
-    if (locale == this.locale) return;
+    if (locale == this.locale$.value) return;
     if (typeof locale === 'string') locale = this.allLocales[locale];
-    this.locale = locale;
     this.dateAdapter.setLocale(locale.id);
+    this.locale$.next(locale);
     this.dayNames$.next(this.getDayOfWeekNames('narrow'));
     this.monthNames$.next(moment.localeData(locale.id).months());
   }
