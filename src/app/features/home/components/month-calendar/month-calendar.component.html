@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <!-- Header: Mon, Tue, ..., Sun -->
-      <th *ngFor="let day of dayNames$ | async">
-        {{ day }}
+      <th *ngFor="let day of weeks[0]">
+        {{ day.format("dd") }}
       </th>
     </tr>
   </thead>
@@ -11,7 +11,7 @@
     <!-- Dates in calendar -->
     <tr *ngFor="let week of weeks">
       <td *ngFor="let day of week">
-        <span *ngIf="day.getMonth() == month">{{ day | date: "d" }}</span>
+        <span *ngIf="day.month() == month">{{ day.format("D") }}</span>
       </td>
     </tr>
   </tbody>

@@ -1,32 +1,41 @@
 import { Injectable } from '@angular/core';
-import { LocaleService } from '@app/core';
+import { Moment } from 'moment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatesService {
-  constructor(private localeService: LocaleService) {}
+  constructor() {}
 
-  getDatesInMonth(month: number, year: number): Date[] {
-    var date = new Date(year, month, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
+  getDatesInMonth(inputMoment: Moment): Moment[] {
+    var date = inputMoment.clone().locale(false).startOf('month');
+    var days: Moment[] = [];
+    while (date.month() === inputMoment.month()) {
+      days.push(date.clone());
+      date.add(1, 'days');
     }
     return days;
   }
 
-  getDaysOfTheFirstWeek(date: Date): Date[] {
-    const firstDay = this.localeService.getFirstDayOfWeek();
+  getWeeks(inputMoment: Moment): Moment[][] {
+    const date = inputMoment
+      .clone()
+      .locale(false)
+      .startOf('month')
+      .startOf('week');
 
-    date = new Date(date.getFullYear(), date.getMonth(), 1);
-    date.setDate(date.getDate() - date.getDay() + firstDay);
-    var week = [];
-    for (var i = 0; i < 7; i++) {
-      week.push(new Date(date));
-      date.setDate(date.getDate() + 1);
+    const end = inputMoment.clone().locale(false).endOf('month').endOf('week');
+
+    var weeks = [];
+    for (var iWeek = 0; date <= end; iWeek++) {
+      var week = [];
+      for (var iDay = 0; iDay < 7; iDay++) {
+        week.push(date.clone());
+        date.add(1, 'days');
+      }
+      weeks.push(week);
     }
-    return week;
+
+    return weeks;
   }
 }

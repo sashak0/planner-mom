@@ -1,7 +1,7 @@
-import { Locale } from '@app/core';
+import { Moment } from 'moment';
 
 export interface HomeForm {
   locale: string;
-  start?: Date;
-  end?: Date;
+  start?: Moment;
+  end?: Moment;
 }

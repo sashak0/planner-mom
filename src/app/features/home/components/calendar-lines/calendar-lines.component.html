@@ -4,7 +4,7 @@
       <month-calendar [date]="date"></month-calendar>
     </div>
     <div class="month-name-box">
-      <span>{{ monthName$ | async }} {{ date | date: "YYYY" }}</span>
+      <span>{{ monthYear$ | async }}</span>
     </div>
   </div>
 

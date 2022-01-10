@@ -5,8 +5,8 @@
         class="line highlight-weekend-numbers align-middle"
         *ngFor="let item of [].constructor(31); let i = index"
       >
-        <td *ngIf="i < dates.length" [class]="'day-' + dates[i].getDay()">
-          {{ dates[i] | date: "d" }}
+        <td *ngIf="i < dates.length" [class]="'day-' + dates[i].day()">
+          {{ dates[i].format("D") }}
         </td>
         <td *ngIf="i >= dates.length">‎</td>
       </tr>

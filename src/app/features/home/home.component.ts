@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Locale, LocaleService } from '@app/core';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HomeForm } from './models';
 
@@ -18,10 +20,10 @@ import { HomeForm } from './models';
 export class HomeComponent implements AfterViewChecked {
   form: FormGroup;
   locales$: Observable<Locale[]>;
-  months$: BehaviorSubject<Date[]> = new BehaviorSubject(<Date[]>[]);
+  months$: BehaviorSubject<Moment[]> = new BehaviorSubject(<Moment[]>[]);
   print: boolean = false;
 
-  previewDate = new Date();
+  previewDate: Moment = moment();
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -29,7 +31,7 @@ export class HomeComponent implements AfterViewChecked {
     builder: FormBuilder
   ) {
     var formInit: HomeForm = {
-      locale: localeService.locale$.value.id,
+      locale: localeService.localeId,
       start: undefined,
       end: undefined,
     };
@@ -57,14 +59,13 @@ export class HomeComponent implements AfterViewChecked {
     const formValue = <HomeForm>this.form.value;
     if (this.submittedFormValue != formValue) {
       this.setLocale(formValue.locale);
-      var _months = [];
-      var date = new Date(formValue.start!);
+      var _months: Moment[] = [];
+      var date = formValue.start!;
       var end = formValue.end!;
 
       while (date < end) {
-        _months.push(date);
-        date = new Date(date);
-        date.setMonth(date.getMonth() + 1);
+        _months.push(date.clone());
+        date.add(1, 'months');
       }
 
       this.months$.next(_months);
