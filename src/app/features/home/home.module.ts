@@ -15,6 +15,7 @@ import {
   CalendarLinesComponent,
   MonthCalendarComponent,
   MonthDaysListComponent,
+  YearCalendarPageComponent,
 } from './components';
 import { HomeComponent } from './home.component';
 
@@ -34,6 +35,7 @@ var components = [
   MonthDaysListComponent,
   CalendarLinesComponent,
   MonthCalendarComponent,
+  YearCalendarPageComponent,
 ];
 
 @NgModule({

@@ -48,13 +48,23 @@
     </mat-card-actions>
   </form>
 
-  <div class="row">
-    <div class="col-md">
+  <!-- TODO separate component -->
+  <div class="row mx-0 mt-3 preview-container">
+    <div class="col-auto px-0 mb-2">
+      <div class="preview">
+        <year-calendar-page
+          class="year-6"
+          [date]="previewDate"
+        ></year-calendar-page>
+      </div>
+    </div>
+
+    <div class="col-auto px-0">
       <div class="preview">
         <calendar-lines [date]="previewDate"></calendar-lines>
       </div>
     </div>
-    <div class="col-md">
+    <div class="col-auto px-0">
       <div class="preview">
         <month-days-list [date]="previewDate"></month-days-list>
       </div>
@@ -62,7 +72,12 @@
   </div>
 </div>
 
-<div class="print-only" *ngFor="let date of months$ | async">
-  <calendar-lines [date]="date"></calendar-lines>
-  <month-days-list [date]="date"></month-days-list>
+<div class="print-only">
+  <div *ngFor="let year of years$ | async">
+    <year-calendar-page class="year-6" [year]="year"></year-calendar-page>
+  </div>
+  <div *ngFor="let date of months$ | async">
+    <calendar-lines [date]="date"></calendar-lines>
+    <month-days-list [date]="date"></month-days-list>
+  </div>
 </div>

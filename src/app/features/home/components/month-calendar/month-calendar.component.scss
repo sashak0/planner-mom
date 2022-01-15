@@ -1,14 +1,17 @@
-:host {
+.month-calendar-box {
+  table {
+    height: fit-content;
+  }
+
   th {
     text-align: center;
     height: 2.5em;
     vertical-align: middle;
   }
 
-  tbody tr,
   td {
-    height: 2.5em;
-    width: 7em;
+    padding: 0 0.6em;
+    height: 2em;
     vertical-align: middle;
     text-align: center;
   }

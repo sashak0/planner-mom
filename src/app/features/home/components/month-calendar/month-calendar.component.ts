@@ -6,7 +6,6 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { LocaleService, UnsubscribeOnDestroy } from '@app/core';
 import { Moment } from 'moment';
 import { DatesService } from '../../services';
 
@@ -16,10 +15,7 @@ import { DatesService } from '../../services';
   styleUrls: ['./month-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MonthCalendarComponent
-  extends UnsubscribeOnDestroy
-  implements OnChanges
-{
+export class MonthCalendarComponent implements OnChanges {
   @Input() date!: Moment;
 
   month!: number;
@@ -27,15 +23,9 @@ export class MonthCalendarComponent
   weeks: Moment[][] = [];
 
   constructor(
-    localeService: LocaleService,
     private datesService: DatesService,
     private changeDetector: ChangeDetectorRef
-  ) {
-    super();
-    this.subs = localeService.dateAdapterLocale$.subscribe(() =>
-      this.updateDates()
-    );
-  }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['date']) this.updateDates();

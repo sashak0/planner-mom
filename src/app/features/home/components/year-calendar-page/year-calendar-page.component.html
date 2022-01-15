@@ -1,0 +1,21 @@
+<div class="d-flex-preview">
+  <div class="page-frame" *ngFor="let months of pages">
+    <div class="page">
+      <div class="d-flex justify-content-center">
+        <span class="year-label">{{ date.format("YYYY") }}</span>
+      </div>
+
+      <div class="row">
+        <div class="col justify-content-center" *ngFor="let month of months">
+          <div class="d-flex justify-content-center">
+            <span class="month-label">{{ month.format("MMMM") }}</span>
+          </div>
+
+          <div class="mb-3">
+            <month-calendar [date]="month"></month-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

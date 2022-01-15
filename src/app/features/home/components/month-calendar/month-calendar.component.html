@@ -1,18 +1,20 @@
-<table>
-  <thead>
-    <tr>
-      <!-- Header: Mon, Tue, ..., Sun -->
-      <th *ngFor="let day of weeks[0]">
-        {{ day.format("dd") }}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Dates in calendar -->
-    <tr *ngFor="let week of weeks">
-      <td *ngFor="let day of week">
-        <span *ngIf="day.month() == month">{{ day.format("D") }}</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="d-flex justify-content-center month-calendar-box">
+  <table>
+    <thead>
+      <tr>
+        <!-- Header: Mon, Tue, ..., Sun -->
+        <th class="weekday-label" *ngFor="let day of weeks[0]">
+          {{ day.format("dd") }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dates in calendar -->
+      <tr *ngFor="let week of weeks">
+        <td *ngFor="let day of week">
+          <span *ngIf="day.month() == month">{{ day.format("D") }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,6 +2,20 @@
 @media print {
   html,
   body {
-    font-size: min(2.5vw, 2.5vh) !important;
+    $size: min(2.5vw, 2.5vh);
+    font-size: $size !important;
+    line-height: $size !important;
   }
+}
+
+@media screen {
+  .d-flex-preview {
+    display: flex;
+  }
+}
+
+.month-label,
+.year-label,
+.weekday-label {
+  // font-family: "Bebas Neue";
 }

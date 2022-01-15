@@ -1,18 +1,20 @@
-<div class="page">
-  <div class="w-100 overlay d-flex justify-content-between">
-    <div class="calendar">
-      <month-calendar [date]="date"></month-calendar>
+<div class="page-frame">
+  <div class="page">
+    <div class="w-100 overlay d-flex justify-content-between">
+      <div class="calendar">
+        <month-calendar [date]="date"></month-calendar>
+      </div>
+      <div class="month-label-box">
+        <span class="month-label">{{ monthYear$ | async }}</span>
+      </div>
     </div>
-    <div class="month-name-box">
-      <span>{{ monthYear$ | async }}</span>
-    </div>
-  </div>
 
-  <table class="lines-table w-100 h-100">
-    <tbody>
-      <tr class="line" *ngFor="let item of [].constructor(31)">
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="lines-table w-100 h-100">
+      <tbody>
+        <tr class="line" *ngFor="let item of [].constructor(31)">
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { LocaleService, UnsubscribeOnDestroy } from '@app/core';
 import { Moment } from 'moment';
 import { DatesService } from '../../services';
 
@@ -15,24 +14,15 @@ import { DatesService } from '../../services';
   styleUrls: ['./month-days-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MonthDaysListComponent
-  extends UnsubscribeOnDestroy
-  implements OnChanges
-{
+export class MonthDaysListComponent implements OnChanges {
   @Input() date!: Moment;
 
   dates: Moment[] = [];
 
   constructor(
-    localeService: LocaleService,
     private datesService: DatesService,
     private changeDetector: ChangeDetectorRef
-  ) {
-    super();
-    this.subs = localeService.dateAdapterLocale$.subscribe(() =>
-      this.updateDates()
-    );
-  }
+  ) {}
 
   ngOnChanges(): void {
     this.updateDates();

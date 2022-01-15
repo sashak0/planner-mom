@@ -1,15 +1,17 @@
-<div class="page">
-  <table class="lines-table w-100 h-100">
-    <tbody>
-      <tr
-        class="line highlight-weekend-numbers align-middle"
-        *ngFor="let item of [].constructor(31); let i = index"
-      >
-        <td *ngIf="i < dates.length" [class]="'day-' + dates[i].day()">
-          {{ dates[i].format("D") }}
-        </td>
-        <td *ngIf="i >= dates.length">‎</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="page-frame">
+  <div class="page">
+    <table class="lines-table w-100 h-100">
+      <tbody>
+        <tr
+          class="line highlight-weekend-numbers align-middle"
+          *ngFor="let item of [].constructor(31); let i = index"
+        >
+          <td *ngIf="i < dates.length" [class]="'day-' + dates[i].day()">
+            {{ dates[i].format("D") }}
+          </td>
+          <td *ngIf="i >= dates.length">‎</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

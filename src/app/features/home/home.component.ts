@@ -5,7 +5,7 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Locale, LocaleService } from '@app/core';
+import { Locale, LocaleService, UnsubscribeOnDestroy } from '@app/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { BehaviorSubject, map, Observable } from 'rxjs';
@@ -17,10 +17,16 @@ import { HomeForm } from './models';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements AfterViewChecked {
+export class HomeComponent
+  extends UnsubscribeOnDestroy
+  implements AfterViewChecked
+{
   form: FormGroup;
   locales$: Observable<Locale[]>;
   months$: BehaviorSubject<Moment[]> = new BehaviorSubject(<Moment[]>[]);
+  years$ = this.months$.pipe(
+    map((months) => new Set(months.map((month) => month.year())))
+  );
   print: boolean = false;
 
   previewDate: Moment = moment();
@@ -30,6 +36,7 @@ export class HomeComponent implements AfterViewChecked {
     private localeService: LocaleService,
     builder: FormBuilder
   ) {
+    super();
     var formInit: HomeForm = {
       locale: localeService.localeId,
       start: undefined,
@@ -44,6 +51,10 @@ export class HomeComponent implements AfterViewChecked {
           this.isMatch(input, locale)
         );
       })
+    );
+
+    this.subs = localeService.dateAdapterLocale$.subscribe(
+      () => (this.previewDate = moment())
     );
   }
 
